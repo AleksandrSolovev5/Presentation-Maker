@@ -1,0 +1,43 @@
+.slideList {
+  width: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.slideItem {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.selected {
+  border: 2px solid #007bff;
+}
+
+.previewContainer {
+  width: 100%;
+  padding-top: 56.25%; /* Соотношение сторон 16:9 */
+  position: relative;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.slidePreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 935px; /* Оригинальная ширина слайда */
+  height: 525px; /* Оригинальная высота слайда */
+  transform: scale(0.2); /* Пример масштабирования для 200px ширины */
+  transform-origin: top left;
+}
+
+.textElement {
+  position: absolute;
+  white-space: nowrap;
+}
+
+.imageElement {
+  position: absolute;
+}

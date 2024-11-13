@@ -1,0 +1,13 @@
+.slideViewer {
+  position: relative;
+  width: 935px;
+  height: 525px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  margin: auto;
+  border-radius: 8px;
+}
