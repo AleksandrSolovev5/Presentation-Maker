@@ -28,7 +28,7 @@ export const maxPresentation: PresentationType = {
           id: "image1",
           type: "image",
           position: { x: 100, y: 100 },
-          size: { width: 400, height: 400 },
+          size: { width: 800, height: 400 },
           url: "example.jpg",
           altText: "Sample image",
         },

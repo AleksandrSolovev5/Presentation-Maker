@@ -1,35 +1,49 @@
 .slideList {
+  /* margin-top: 10px; */
   width: 200px;
-  overflow-y: auto;
+  max-height: 90vh; /* Ограничиваем высоту списка */
+  overflow-y: scroll; /* Ползунок всегда виден */
   padding: 10px;
   border-right: 1px solid #ddd;
   box-sizing: border-box;
 }
 
 .slideItem {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .selected {
   border: 2px solid #007bff;
 }
 
+/* Номер слайда */
+.slideNumber {
+  font-size: 14px;
+  color: #555;
+  width: 20px;
+  text-align: right;
+}
+
 .previewContainer {
-  width: 100%;
-  padding-top: 56.25%; /* Соотношение сторон 16:9 */
   position: relative;
+  width: 160px;
+  height: 90px;
   overflow: hidden;
   background-color: #f0f0f0;
+  border: 1px solid black;
 }
 
 .slidePreview {
   position: absolute;
   top: 0;
   left: 0;
-  width: 935px; /* Оригинальная ширина слайда */
-  height: 525px; /* Оригинальная высота слайда */
-  transform: scale(0.2); /* Пример масштабирования для 200px ширины */
+  width: 935px;
+  height: 525px;
+  transform: scale(0.17);
   transform-origin: top left;
 }
 
@@ -40,4 +54,22 @@
 
 .imageElement {
   position: absolute;
+}
+
+/* Минималистичный стиль ползунка */
+.slideList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.slideList::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.slideList::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+.slideList::-webkit-scrollbar-track {
+  background: #f5f5f5;
 }

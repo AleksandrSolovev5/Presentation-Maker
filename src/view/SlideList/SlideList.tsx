@@ -22,6 +22,9 @@ function SlideList({
           }`}
           onClick={() => onSelectSlide(index)}
         >
+          {/* Номер слайда */}
+          <div className={styles.slideNumber}>{index + 1}</div>
+          {/* Превью слайда */}
           <SlidePreview slide={slide} />
         </div>
       ))}
@@ -33,7 +36,6 @@ type SlidePreviewProps = {
   slide: SlideType;
 };
 
-// Компонент для превью с применением `transform: scale`
 function SlidePreview({ slide }: SlidePreviewProps) {
   return (
     <div className={styles.previewContainer}>

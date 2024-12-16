@@ -1,13 +1,27 @@
 .slideViewer {
   position: relative;
-  width: 935px;
-  height: 525px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: auto; /* Центрирование слайда */
   background-color: #ffffff;
-  border: 2px solid #ccc;
-  margin: auto;
-  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.textElement {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  padding: 4px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.textElement.active {
+  border: 1px dashed #ccc;
+}
+
+
+.imageElement.selected {
+  border: 2px solid #007bff; 
+ 
+
 }

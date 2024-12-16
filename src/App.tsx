@@ -1,39 +1,46 @@
-import PresentationTitle from "./view/PresentationTitle/PresentationTitle";
+import TopPanel from "./view/TopPanel/TopPanel";
 import SlideList from "./view/SlideList/SlideList";
 import WorkSpace from "./view/WorkSpace/WorkSpace";
-import styles from './App.module.css';
-import { maxPresentation } from "./store/testData";
-import { PresentationType } from "./store/PresentationType";
+import styles from "./App.module.css";
+import { getEditor, dispatch, addEditorChangeHandler } from "./store/editor"; // Импорт dispatch
+import { EditorType } from "./store/EditorType"; // Импорт типа редактора
 
-// сделать превьюшки слайдов, исправить координаты для обьектов
 type AppProps = {
   renderApp: () => void;
 };
 
-const state = {
-  selectedSlideIndex: 0,
-};
-
 function App({ renderApp }: AppProps) {
-  const presentation: PresentationType = maxPresentation;
-  const { slides, title } = presentation;
+  const editor: EditorType = getEditor(); // Получаем текущее состояние редактора
+  const { slides, title } = editor.presentation;
+  const selectedSlideId = editor.selection.selectedSlideId;
+  const selectedSlide = slides.find((slide) => slide.id === selectedSlideId);
 
-  function selectSlide(index: number) {
-    state.selectedSlideIndex = index;
-    renderApp();  
-  }
+function selectSlide(index: number): void {
+  const selectedSlideId = slides[index]?.id || null;
+  dispatch((editor: EditorType) => ({
+    ...editor,
+    selection: {
+      selectedSlideId,
+      selectedElementId: null, // Сбрасываем выделение объекта при переключении слайда
+    },
+  }));
+  renderApp();
+}
 
-  const selectedSlide = slides[state.selectedSlideIndex];
+
+  // Устанавливаем обработчик для обновления состояния приложения
+  addEditorChangeHandler(renderApp);
 
   return (
     <div className={styles.app}>
-      <div className={styles.topPanel}>
-        <PresentationTitle title={title} />
-      </div>
-
+      <TopPanel title={title} />
       <div className={styles.mainContainer}>
-        <SlideList slides={slides} selectedSlideIndex={state.selectedSlideIndex} onSelectSlide={selectSlide} />
-        <WorkSpace slide={selectedSlide} />
+        <SlideList
+          slides={slides}
+          selectedSlideIndex={slides.findIndex((s) => s.id === selectedSlideId)}
+          onSelectSlide={selectSlide}
+        />
+        {selectedSlide && <WorkSpace slide={selectedSlide} />}
       </div>
     </div>
   );
