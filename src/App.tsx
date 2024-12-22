@@ -2,8 +2,8 @@ import TopPanel from "./view/TopPanel/TopPanel";
 import SlideList from "./view/SlideList/SlideList";
 import WorkSpace from "./view/WorkSpace/WorkSpace";
 import styles from "./App.module.css";
-import { getEditor, dispatch, addEditorChangeHandler } from "./store/editor"; // Импорт dispatch
-import { EditorType } from "./store/EditorType"; // Импорт типа редактора
+import { getEditor, dispatch, addEditorChangeHandler } from "./store/editor";
+import { EditorType } from "./store/EditorType";
 
 type AppProps = {
   renderApp: () => void;
@@ -15,20 +15,18 @@ function App({ renderApp }: AppProps) {
   const selectedSlideId = editor.selection.selectedSlideId;
   const selectedSlide = slides.find((slide) => slide.id === selectedSlideId);
 
-function selectSlide(index: number): void {
-  const selectedSlideId = slides[index]?.id || null;
-  dispatch((editor: EditorType) => ({
-    ...editor,
-    selection: {
-      selectedSlideId,
-      selectedElementId: null, // Сбрасываем выделение объекта при переключении слайда
-    },
-  }));
-  renderApp();
-}
+  function selectSlide(index: number): void {
+    const selectedSlideId = slides[index]?.id || null;
+    dispatch((editor: EditorType) => ({
+      ...editor,
+      selection: {
+        selectedSlideId,
+        selectedElementId: null,
+      },
+    }));
+    renderApp();
+  }
 
-
-  // Устанавливаем обработчик для обновления состояния приложения
   addEditorChangeHandler(renderApp);
 
   return (

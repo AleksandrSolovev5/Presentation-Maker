@@ -16,12 +16,12 @@ function addSlide(editor: EditorType): EditorType {
 
   const updatedSlides = [...editor.presentation.slides];
 
-  // Вставляем новый слайд после текущего выбранного
+  // вставляем новый слайд после выбранного
   const insertIndex =
     currentSlideIndex !== -1 ? currentSlideIndex + 1 : updatedSlides.length;
   updatedSlides.splice(insertIndex, 0, newSlide);
 
-  // Обновляем порядок всех слайдов
+  // обновляем порядок  слайдов
   const reorderedSlides = updatedSlides.map((slide, index) => ({
     ...slide,
     order: index + 1,
@@ -35,7 +35,7 @@ function addSlide(editor: EditorType): EditorType {
     },
     selection: {
       selectedSlideId: newSlide.id,
-      selectedElementId: null, // Сбрасываем выбранный объект
+      selectedElementId: null, 
     },
   };
 }

@@ -10,11 +10,6 @@ function removeObject(editor: EditorType): EditorType {
     (slide) => slide.id === editor.selection?.selectedSlideId
   );
 
-  if (selectedSlideIndex === -1) {
-    alert("Не удалось найти выбранный слайд.");
-    return editor;
-  }
-
   const selectedElementId = editor.selection?.selectedElementId;
 
   if (!selectedElementId) {

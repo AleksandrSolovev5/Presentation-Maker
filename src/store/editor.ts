@@ -3,7 +3,10 @@ import { maxPresentation } from "./testData";
 
 let _editor: EditorType = {
   presentation: maxPresentation,
-  selection: { selectedSlideId: maxPresentation.slides[0]?.id || null },
+  selection: {
+    selectedSlideId: maxPresentation.slides[0]?.id || null,
+    selectedElementId: null,
+  },
 };
 
 let _handler: (() => void) | null = null;
@@ -16,9 +19,9 @@ function setEditor(newEditor: EditorType): void {
   _editor = newEditor;
 }
 
-function dispatch(
-  modifyFn: (editor: EditorType, payload?: any) => EditorType,
-  payload?: any
+function dispatch<T = unknown>(
+  modifyFn: (editor: EditorType, payload?: T) => EditorType,
+  payload?: T
 ): void {
   const newEditor = modifyFn(_editor, payload);
   setEditor(newEditor);
@@ -27,6 +30,7 @@ function dispatch(
     _handler();
   }
 }
+
 
 function addEditorChangeHandler(handler: () => void): void {
   _handler = handler;

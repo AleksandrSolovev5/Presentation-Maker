@@ -20,10 +20,10 @@ function addText(
   }
 
   const newTextElement: TextElement = {
-    id: `text${Date.now()}`, // Уникальный ID для элемента
+    id: `text${Date.now()}`, // Уникальный ID
     type: "text",
-    position: { x: 50, y: 50 }, // Позиция по умолчанию
-    size: { width: 300, height: 50 }, // Размер по умолчанию
+    position: { x: 50, y: 50 }, 
+    size: { width: 300, height: 50 }, 
     content,
     fontSize: 16,
     fontFamily: "Arial",

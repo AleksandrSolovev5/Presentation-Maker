@@ -4,6 +4,6 @@ export type EditorType = {
   presentation: PresentationType;
   selection: {
     selectedSlideId: string | null;
-    selectedElementId: string | null; // Добавлено поле для выделенного объекта
+    selectedElementId: string | null; 
   };
 };

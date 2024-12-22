@@ -1,7 +1,7 @@
 import { EditorType } from "./EditorType";
 
 function changeSlideBackground(editor: EditorType): EditorType {
-  const lightOrange = "#FFD580"; // Светло-оранжевый цвет
+  const lightOrange = "#FFD580"; 
 
   if (!editor.selection?.selectedSlideId) {
     alert("Выберите слайд для изменения фона.");

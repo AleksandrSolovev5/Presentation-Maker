@@ -2,7 +2,7 @@ import { EditorType } from "./EditorType";
 
 function removeSlide(editor: EditorType): EditorType {
   if (!editor.selection?.selectedSlideId) {
-    return editor; // Если нет выделенного слайда, возвращаем текущее состояние
+    return editor; // возвращаем текущее состояние когда слайд не выделен
   }
 
   const removeSlideId = editor.selection.selectedSlideId;
@@ -27,7 +27,8 @@ function removeSlide(editor: EditorType): EditorType {
       slides: newSlides,
     },
     selection: {
-      selectedSlideId: newSelectedSlideId,
+      selectedSlideId: newSelectedSlideId, 
+      selectedElementId: null, 
     },
   };
 }

@@ -1,7 +1,12 @@
 import { EditorType } from "./EditorType";
 import { ImageElement } from "./PresentationType";
 
-function addImage(editor: EditorType, file: File): EditorType {
+function addImage(editor: EditorType, file?: File): EditorType {
+  if (!file) {
+    console.error("Файл не передан.");
+    return editor;
+  }
+
   if (!editor.selection?.selectedSlideId) {
     alert("Выберите слайд для добавления изображения.");
     return editor;
@@ -21,8 +26,8 @@ function addImage(editor: EditorType, file: File): EditorType {
   const newImageElement: ImageElement = {
     id: `image${Date.now()}`, // Уникальный ID для элемента
     type: "image",
-    position: { x: 50, y: 50 }, // Позиция по умолчанию
-    size: { width: 300, height: 300 }, // Размер по умолчанию
+    position: { x: 50, y: 50 },
+    size: { width: 300, height: 300 },
     url: imageUrl,
     altText: file.name,
   };
@@ -41,5 +46,6 @@ function addImage(editor: EditorType, file: File): EditorType {
     },
   };
 }
+
 
 export { addImage };
