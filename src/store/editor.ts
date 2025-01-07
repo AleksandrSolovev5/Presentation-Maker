@@ -1,39 +1,52 @@
 import { EditorType } from "./EditorType";
-import { maxPresentation } from "./testData";
 
-let _editor: EditorType = {
-  presentation: maxPresentation,
+const LOCAL_STORAGE_KEY = "presentation_editor_state";
+
+export function saveEditorState(editor: EditorType): void {
+  try {
+    const state = JSON.stringify(editor);
+    localStorage.setItem(LOCAL_STORAGE_KEY, state);
+  } catch (error) {
+    console.error("Error saving editor state to localStorage:", error);
+  }
+}
+
+export function loadEditorState(): EditorType | null {
+  try {
+    const state = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return state ? JSON.parse(state) : null;
+  } catch (error) {
+    console.error("Error loading editor state from localStorage:", error);
+    return null;
+  }
+}
+
+let editor: EditorType = loadEditorState() || {
+  // Начальное состояние редактора (если в localStorage ничего нет)
+  presentation: {
+    title: "Моя презентация",
+    slides: [],
+  },
   selection: {
-    selectedSlideId: maxPresentation.slides[0]?.id || null,
+    selectedSlideId: null,
     selectedElementId: null,
   },
 };
 
-let _handler: (() => void) | null = null;
-
-function getEditor(): EditorType {
-  return _editor;
+// Изменяем состояние редактора
+export function dispatch(updater: (editor: EditorType) => EditorType): void {
+  editor = updater(editor);
+  saveEditorState(editor); // Сохраняем обновленное состояние в localStorage
 }
 
-function setEditor(newEditor: EditorType): void {
-  _editor = newEditor;
+// Получаем текущее состояние редактора
+export function getEditor(): EditorType {
+  return editor;
 }
 
-function dispatch<T = unknown>(
-  modifyFn: (editor: EditorType, payload?: T) => EditorType,
-  payload?: T
-): void {
-  const newEditor = modifyFn(_editor, payload);
-  setEditor(newEditor);
+// Добавляем обработчик изменений (как и раньше)
+const editorChangeHandlers: (() => void)[] = [];
 
-  if (_handler) {
-    _handler();
-  }
+export function addEditorChangeHandler(handler: () => void): void {
+  editorChangeHandlers.push(handler);
 }
-
-
-function addEditorChangeHandler(handler: () => void): void {
-  _handler = handler;
-}
-
-export { getEditor, setEditor, dispatch, addEditorChangeHandler };

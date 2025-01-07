@@ -1,8 +1,15 @@
+import React, { useEffect } from "react";
 import TopPanel from "./view/TopPanel/TopPanel";
 import SlideList from "./view/SlideList/SlideList";
 import WorkSpace from "./view/WorkSpace/WorkSpace";
 import styles from "./App.module.css";
-import { getEditor, dispatch, addEditorChangeHandler } from "./store/editor";
+import {
+  getEditor,
+  dispatch,
+  addEditorChangeHandler,
+  saveEditorState,
+  loadEditorState,
+} from "./store/editor";
 import { EditorType } from "./store/EditorType";
 
 type AppProps = {
@@ -14,6 +21,20 @@ function App({ renderApp }: AppProps) {
   const { slides, title } = editor.presentation;
   const selectedSlideId = editor.selection.selectedSlideId;
   const selectedSlide = slides.find((slide) => slide.id === selectedSlideId);
+
+  // Загрузка состояния из localStorage при монтировании
+  useEffect(() => {
+    const savedState = loadEditorState();
+    if (savedState) {
+      dispatch(() => savedState);
+      renderApp();
+    }
+  }, [renderApp]);
+
+  // Обновление localStorage при изменении состояния
+  useEffect(() => {
+    saveEditorState(editor);
+  }, [editor]);
 
   function selectSlide(index: number): void {
     const selectedSlideId = slides[index]?.id || null;

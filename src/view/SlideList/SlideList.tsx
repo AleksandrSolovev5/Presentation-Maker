@@ -1,5 +1,7 @@
 import styles from "./SlideList.module.css";
 import { SlideType } from "../../store/PresentationType";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { dispatch } from "../../store/editor";
 
 type SlideListProps = {
   slides: SlideType[];
@@ -12,6 +14,19 @@ function SlideList({
   selectedSlideIndex,
   onSelectSlide,
 }: SlideListProps) {
+  const { handleDragStart, handleDragOver, handleDragEnd } = useDragAndDrop({
+    items: slides,
+    onUpdate: (updatedSlides) => {
+      dispatch((editor) => ({
+        ...editor,
+        presentation: {
+          ...editor.presentation,
+          slides: updatedSlides,
+        },
+      }));
+    },
+  });
+
   return (
     <div className={styles.slideList}>
       {slides.map((slide, index) => (
@@ -21,10 +36,12 @@ function SlideList({
             index === selectedSlideIndex ? styles.selected : ""
           }`}
           onClick={() => onSelectSlide(index)}
+          draggable
+          onDragStart={() => handleDragStart(index)}
+          onDragOver={(event) => handleDragOver(event, index)}
+          onDragEnd={handleDragEnd}
         >
-          {/* Номер слайда */}
           <div className={styles.slideNumber}>{index + 1}</div>
-          {/* Превью слайда */}
           <SlidePreview slide={slide} />
         </div>
       ))}
