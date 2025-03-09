@@ -1,0 +1,46 @@
+.slideList {
+  max-width: 13vw;
+  padding: 5vw 2vw 0 2vw;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 85vh;
+}
+
+.slideList::-webkit-scrollbar {
+  width: 0.5vw;
+}
+
+.slideList::-webkit-scrollbar-thumb {
+  background-color: #d5dbe3;
+  border-radius: 10px;
+}
+
+.slide {
+  display: flex;
+  gap: 1vw;
+  margin-bottom: 2vh;
+  justify-content: space-between;
+}
+
+.slideContainer {
+  position: relative;
+  width: 12vw;
+  height: calc(12vw * 9 / 16);
+  border-radius: 5px;
+  border: 0.15vw solid #d5dbe3;
+  transition: border-color 0.3s ease;
+  overflow: hidden;
+  -webkit-user-drag: element;
+  user-select: none;
+}
+
+.selected {
+  border-color: rgb(11, 87, 208);
+}
+
+.slideNumber {
+  font-size: 1vw;
+  font-weight: bold;
+  user-select: none;
+}

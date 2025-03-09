@@ -1,9 +1,11 @@
-import { PresentationType } from "./PresentationType";
+import {Presentation} from "./types";
+
+export type SelectionType = {
+    selectedSlideId: string | null,
+    selectedElementId: string | null,
+}
 
 export type EditorType = {
-  presentation: PresentationType;
-  selection: {
-    selectedSlideId: string | null;
-    selectedElementId: string | null; 
-  };
-};
+    presentation: Presentation,
+    selection: SelectionType
+}

@@ -1,12 +1,15 @@
-import ReactDOM from "react-dom";
-import App from "./App";
+import App from "./App.tsx";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store.ts";
 
-const rootElement = document.getElementById("root");
+const root = createRoot(document.getElementById("root")!);
 
-// функция для рендеринга приложения
-function renderApp() {
-  ReactDOM.render(<App renderApp={renderApp} />, rootElement);
-}
-
-renderApp();
-
+root.render(
+  <StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </StrictMode>
+);

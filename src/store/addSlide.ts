@@ -1,43 +1,27 @@
 import { EditorType } from "./EditorType";
-import { SlideType } from "./PresentationType";
+import { generateId } from "./generateId.ts";
 
-function addSlide(editor: EditorType): EditorType {
-  const selectedSlideId = editor.selection?.selectedSlideId;
-  const currentSlideIndex = editor.presentation.slides.findIndex(
-    (slide) => slide.id === selectedSlideId
-  );
-
-  const newSlide: SlideType = {
-    id: `slide${Date.now()}`, 
-    background: { type: "color", value: "#FFFFFF" },
-    elements: [],
-    order: editor.presentation.slides.length + 1,
-  };
-
-  const updatedSlides = [...editor.presentation.slides];
-
-  // вставляем новый слайд после выбранного
-  const insertIndex =
-    currentSlideIndex !== -1 ? currentSlideIndex + 1 : updatedSlides.length;
-  updatedSlides.splice(insertIndex, 0, newSlide);
-
-  // обновляем порядок  слайдов
-  const reorderedSlides = updatedSlides.map((slide, index) => ({
-    ...slide,
-    order: index + 1,
-  }));
+export const addSlide = (editor: EditorType): EditorType => {
+  const slideId = generateId(50);
 
   return {
     ...editor,
     presentation: {
       ...editor.presentation,
-      slides: reorderedSlides,
+      slides: [
+        ...editor.presentation.slides,
+        {
+          id: slideId,
+          type: "slide",
+          backgroundColor: "white",
+          content: [],
+        },
+      ],
     },
     selection: {
-      selectedSlideId: newSlide.id,
+      ...editor.selection,
+      selectedSlideId: slideId, // устанавливаем выбор на новый слайд
       selectedElementId: null, 
     },
   };
-}
-
-export { addSlide };
+};

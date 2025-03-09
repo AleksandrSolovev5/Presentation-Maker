@@ -1,19 +1,12 @@
-import { EditorType } from "./EditorType";
+import {EditorType} from "./EditorType.ts";
+import { RenamePresentationTitleAction } from "./redux/actions.ts";
 
-function renamePresentationTitle(editor: EditorType, newTitle?: string): EditorType {
-  if (!newTitle) {
-    console.error("Новое название не передано.");
-    return editor;
-  }
-
-  return {
-    ...editor,
-    presentation: {
-      ...editor.presentation,
-      title: newTitle,
-    },
-  };
+export function renamePresentationTitle(editor: EditorType, action: RenamePresentationTitleAction): EditorType {
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            title: action.payload,
+        }
+    }
 }
-
-
-export { renamePresentationTitle };

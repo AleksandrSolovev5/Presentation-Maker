@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  background-color: #bcf08f;
+  padding: 10px;
+}
+
+.topPanel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  background-color: #bcf08f;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.presentationName:hover {
+  background-color: #d4f4b1;
+}
+
+.presentationName:focus {
+  background-color: #f0ffe0;
+}
+
+.presentationName {
+  border: 1px solid #868686;
+  font-size: 1rem;
+  background-color: transparent;
+  border-radius: 4px;
+  text-align: center;
+  padding: 5px;
+  min-width: 150px;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #fff;
+  border: 1px solid #868686;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
